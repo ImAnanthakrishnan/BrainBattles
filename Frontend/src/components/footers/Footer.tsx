@@ -21,7 +21,7 @@ const socialLinks = [
   },
 ];
 
-const quickLinks01 = [
+/*const quickLinks01 = [
   {
     path: "/home",
     display: "Home",
@@ -38,7 +38,7 @@ const quickLinks01 = [
     path: "/",
     display: "Blog",
   },
-];
+];*/
 
 const Footer = () => {
   const year = new Date().getFullYear();
