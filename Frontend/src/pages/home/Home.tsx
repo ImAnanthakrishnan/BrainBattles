@@ -22,7 +22,7 @@ const Home = () => {
       <div className="w-[700px] h-[450px] m-auto bg-purple-300 rounded-lg border border-r-[15px] shadow-custom-shadow flex justify-between">
         
         <div className="p-5 ">
-        <h1 className="font-bold ">Welcome, {currentUser?.name}</h1>
+        <h1 className="font-bold ">{currentUser && `Welcome, ${currentUser?.name}`}</h1>
           <h1 className="font-bold text-[2rem] mt-10">
             Learn new concepts for each question
           </h1>
