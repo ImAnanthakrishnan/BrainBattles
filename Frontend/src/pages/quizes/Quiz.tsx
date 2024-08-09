@@ -7,6 +7,7 @@ import useFetch from "../../hooks/useFetch";
 import { failed, start, success } from "../../slices/quizSlice";
 import { Quiz as Quizz } from "../../slices/quizSlice";
 import { addScore } from "../../utilis/apiCalls";
+import MainLoader from "../../components/loaders/MainLoader";
 
 
 const Quiz = ({ currentPage, setCurrentPage }: PropsType) => {
@@ -41,8 +42,13 @@ const Quiz = ({ currentPage, setCurrentPage }: PropsType) => {
 
   const { quizes } = useAppSelector((data) => data.quizes);
 
+  if(!quizes){
+    return <MainLoader />;
+  }
+
   const { currentQuiz, totalPages } = pagination(quizes, currentPage); //pagination
 
+  // next page handeler
   const handleNextPage = () => {
     if (currentPage < totalPages && isClicked) {
       option_array.forEach((option) => {
@@ -57,19 +63,22 @@ const Quiz = ({ currentPage, setCurrentPage }: PropsType) => {
       setResult(true);
       return 0;
     }
-  };
+  }; 
 
+  //index of correct answer
   const res = currentQuiz.map((item) => {
     return item.answers.findIndex((ans) => String(ans.right) === "true");
   });
   let index = res[0];
 
+  //correct answer
   const correctAnswer = currentQuiz.map((item) => {
     return item.answers.find((ans) => String(ans.right) === "true");
   });
 
   let correct = correctAnswer[0]?.answerText;
 
+  //answer click handler
   const handleAnswerClick = (
     e: React.MouseEvent<HTMLLIElement>,
     isCorrect: string
@@ -102,6 +111,7 @@ const Quiz = ({ currentPage, setCurrentPage }: PropsType) => {
     }
   };
 
+  //timer
   useEffect(() => {
     let timer: any;
     if (!isClicked) {
@@ -121,6 +131,7 @@ const Quiz = ({ currentPage, setCurrentPage }: PropsType) => {
     };
   }, [isClicked]);
 
+  //timer
   useEffect(() => {
     let newTimer: any;
     if (counter === 0) {
@@ -145,7 +156,7 @@ const Quiz = ({ currentPage, setCurrentPage }: PropsType) => {
     };
   }, [counter]);
 
-
+ //score 
   useEffect(() => {
     if (result === true) {
       addScore(`/score`, score, level,token);

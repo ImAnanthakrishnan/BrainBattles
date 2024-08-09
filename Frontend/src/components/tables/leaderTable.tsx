@@ -1,8 +1,22 @@
 import { useAppSelector } from "../../app/hooks";
+import MainLoader from "../loaders/MainLoader";
 
 export default function LeaderTable() {
   const { users: data } = useAppSelector((data) => data.leaderboard);
-  console.log(data);
+
+  if (!data) {
+   
+    return <MainLoader />;
+  }
+
+  if (data.length === 0) {
+ 
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p>No data available</p>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col">
       <div className="container overflow-x-auto sm:-mx-6 lg:-mx-8">
