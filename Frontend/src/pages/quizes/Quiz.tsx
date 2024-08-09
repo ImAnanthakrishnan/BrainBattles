@@ -26,6 +26,21 @@ const Quiz = ({ currentPage, setCurrentPage }: PropsType) => {
   let option_array = [option1, option2, option3, option4];
   const { level } = useParams();
   let navigate = useNavigate();
+  //checking level
+
+  const VALID = ['easy','medium','hard'];
+
+  useEffect(() => {
+    if (level && !VALID.includes(level)) {
+      navigate('/404', { replace: true });
+    }
+  }, [level, navigate]);
+
+  if (level && !VALID.includes(level)) {
+    return null; 
+  }
+
+  
   let dispatch = useAppDispatch();
    const {token} = useAppSelector(data => data.user)
   const { datas, loading, error } = useFetch<Quizz>(`/quiz/${level}`,token); //fetching data
