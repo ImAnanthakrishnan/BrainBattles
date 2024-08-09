@@ -22,6 +22,16 @@ const Header = () => {
       display: "Leaderboard",
     },
   ];
+
+  const handleClick = () => {
+    if (currentUser) {
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false)
+      navigate('/auth'); 
+    }
+  }
+
   const toggleMenu = () => menuRef.current?.classList.toggle("show__menu");
   const logout = () => {
     dispatch(Logout());
@@ -60,7 +70,7 @@ const Header = () => {
           <div className="relative flex items-center gap-4">
             <FaUserCircle
               size={35}
-              onClick={() => {currentUser ? setShowDropdown(true) : setShowDropdown(false)}}
+              onClick={handleClick}
               className="cursor-pointer"
             />
             {showDropdown && (
