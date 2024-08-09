@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import  React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 type PropsType = {
@@ -40,4 +40,4 @@ const LevelModal = ({ isOpen, closeModal }: PropsType) => {
   );
 };
 
-export default LevelModal;
+export default React.memo(LevelModal);
